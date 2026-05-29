@@ -682,7 +682,12 @@ items?.map(item => <Card key={item.id} />)`;
       {/* Two-Column Grid Content Panel */}
       <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
         {/* Left Column (40% width): Large Screenshot Image View */}
-        <div className="w-full lg:w-[40%] shrink-0 border-r border-brand-border bg-[#0A0A0A] p-6 flex flex-col gap-3 h-full overflow-y-auto custom-scrollbar select-none">
+        <motion.div 
+          initial={{ opacity: 0, x: -15 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          className="w-full lg:w-[40%] shrink-0 border-r border-brand-border bg-[#0A0A0A] p-6 flex flex-col gap-3 h-full overflow-y-auto custom-scrollbar select-none"
+        >
           <span className="text-[10px] font-bold text-slate-500 font-mono tracking-wider uppercase">Screenshot Preview</span>
           
           <div className="relative border border-brand-border bg-[#111111] p-1 flex items-center justify-center overflow-hidden min-h-[300px] flex-1">
@@ -712,46 +717,60 @@ items?.map(item => <Card key={item.id} />)`;
               ● Connected
             </span>
           </div>
-        </div>
+        </motion.div>
 
-        {/* Right Column (60% width): Detailed Analysis Scroll Area or Loading Panel */}
-        {isAnalyzing ? (
-          <div className="flex-1 flex flex-col h-full overflow-hidden bg-brand-bg justify-center items-center">
-            <div className="flex-1 p-6 space-y-6 overflow-y-auto custom-scrollbar w-full flex flex-col items-center justify-center">
-              <div className="flex flex-col items-center max-w-sm text-center">
-                {/* Rotating Loader Icon */}
-                <div className="relative w-16 h-16 flex items-center justify-center mb-6">
-                  <div className="absolute inset-0 border-4 border-slate-800 rounded-none"></div>
-                  <div className="absolute inset-0 border-4 border-[#4B8EFF] border-t-transparent rounded-none animate-spin"></div>
-                  <Cpu className="w-6 h-6 text-brand-secondary absolute animate-pulse text-slate-400" />
+        {/* Right Column (60% width): Detailed Analysis Scroll Area or Loading Panel with AnimatePresence */}
+        <div className="flex-1 flex flex-col h-full overflow-hidden bg-brand-bg relative">
+          <AnimatePresence mode="wait">
+            {isAnalyzing ? (
+              <motion.div
+                key="loading-panel"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                className="absolute inset-0 p-6 overflow-y-auto custom-scrollbar w-full flex flex-col items-center justify-center bg-brand-bg"
+              >
+                <div className="flex flex-col items-center max-w-sm text-center">
+                  {/* Rotating Loader Icon */}
+                  <div className="relative w-16 h-16 flex items-center justify-center mb-6">
+                    <div className="absolute inset-0 border-4 border-slate-800 rounded-none"></div>
+                    <div className="absolute inset-0 border-4 border-[#4B8EFF] border-t-transparent rounded-none animate-spin"></div>
+                    <Cpu className="w-6 h-6 text-brand-secondary absolute animate-pulse text-slate-400" />
+                  </div>
+                  
+                  {/* Rotating Loading Text */}
+                  <h3 className="text-md font-bold text-white min-h-[24px] font-mono uppercase tracking-wider">
+                    {loadingText}
+                  </h3>
+                  
+                  {/* Animated Progress Bar */}
+                  <div className="w-48 h-1.5 bg-slate-800 overflow-hidden mt-4 mb-2 border border-brand-border/20">
+                    <div 
+                      className="h-full bg-[#4B8EFF] transition-all duration-500 ease-out" 
+                      style={{ width: `${loadingProgress}%` }}
+                    ></div>
+                  </div>
+                  <span className="text-[10px] font-bold text-[#4B8EFF] font-mono">{loadingProgress}% COMPLETE</span>
+                  
+                  <p className="text-xs text-slate-500 mt-3 leading-relaxed font-sans">
+                    Gemma 4 Vision is parsing screenshot tokens and mapping structures locally.
+                  </p>
                 </div>
-                
-                {/* Rotating Loading Text */}
-                <h3 className="text-md font-bold text-white min-h-[24px] font-mono uppercase tracking-wider">
-                  {loadingText}
-                </h3>
-                
-                {/* Animated Progress Bar */}
-                <div className="w-48 h-1.5 bg-slate-800 overflow-hidden mt-4 mb-2 border border-brand-border/20">
-                  <div 
-                    className="h-full bg-[#4B8EFF] transition-all duration-500 ease-out" 
-                    style={{ width: `${loadingProgress}%` }}
-                  ></div>
+                <div className="w-full max-w-3xl mt-8">
+                  <SkeletonCards />
                 </div>
-                <span className="text-[10px] font-bold text-[#4B8EFF] font-mono">{loadingProgress}% COMPLETE</span>
-                
-                <p className="text-xs text-slate-500 mt-3 leading-relaxed font-sans">
-                  Gemma 4 Vision is parsing screenshot tokens and mapping structures locally.
-                </p>
-              </div>
-              <div className="w-full max-w-3xl mt-8">
-                <SkeletonCards />
-              </div>
-            </div>
-          </div>
-        ) : (
-          <div className="flex-1 flex flex-col h-full overflow-hidden bg-brand-bg">
-            <div className="flex-1 p-6 space-y-6 overflow-y-auto custom-scrollbar">
+              </motion.div>
+            ) : (
+              <motion.div
+                key="results-panel"
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                className="absolute inset-0 flex flex-col h-full overflow-hidden bg-brand-bg"
+              >
+                <div className="flex-1 p-6 space-y-6 overflow-y-auto custom-scrollbar">
               
               {/* 1. Technical dashboard components */}
               {renderTechnicalDashboard()}
@@ -882,10 +901,11 @@ items?.map(item => <Card key={item.id} />)`;
                 </button>
               </form>
             </div>
-
           </div>
-        </div>
+        </motion.div>
       )}
+      </AnimatePresence>
+    </div>
       </div>
 
       {/* Modal Actions */}
