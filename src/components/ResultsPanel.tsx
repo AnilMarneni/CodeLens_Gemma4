@@ -721,15 +721,15 @@ items?.map(item => <Card key={item.id} />)`;
 
         {/* Right Column (60% width): Detailed Analysis Scroll Area or Loading Panel with AnimatePresence */}
         <div className="flex-1 flex flex-col h-full overflow-hidden bg-brand-bg relative">
-          <AnimatePresence mode="wait">
+          <AnimatePresence>
             {isAnalyzing ? (
               <motion.div
                 key="loading-panel"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
                 exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute inset-0 p-6 overflow-y-auto custom-scrollbar w-full flex flex-col items-center justify-center bg-brand-bg"
+                transition={{ duration: 0.3 }}
+                className="absolute inset-0 w-full h-full p-6 overflow-y-auto custom-scrollbar flex flex-col items-center justify-center bg-brand-bg"
               >
                 <div className="w-full max-w-lg flex flex-col gap-6 select-none font-mono">
                   {/* Console loading box */}
@@ -793,11 +793,11 @@ items?.map(item => <Card key={item.id} />)`;
             ) : (
               <motion.div
                 key="results-panel"
-                initial={{ opacity: 0, y: 15 }}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
-                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute inset-0 flex flex-col h-full overflow-hidden bg-brand-bg"
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                className="absolute inset-0 w-full h-full flex flex-col overflow-hidden bg-brand-bg"
               >
                 <div className="flex-1 p-6 space-y-6 overflow-y-auto custom-scrollbar">
               
@@ -966,18 +966,49 @@ items?.map(item => <Card key={item.id} />)`;
                 </button>
               </div>
 
-              <div className="flex-1 p-6 overflow-y-auto custom-scrollbar select-text bg-[#0A0A0A]/20 leading-relaxed font-sans text-xs">
-                {isActionLoading ? (
-                  <div className="flex flex-col items-center justify-center py-16 gap-3 select-none">
-                    <div className="w-6 h-6 border-2 border-brand-border border-t-[#4B8EFF] animate-spin"></div>
-                    <span className="text-[10px] font-bold text-slate-500 tracking-wider">Gemma is analyzing...</span>
-                  </div>
-                ) : (
-                  <div 
-                    className="prose prose-invert max-w-none text-slate-300 text-xs font-sans leading-relaxed space-y-3"
-                    dangerouslySetInnerHTML={renderMarkdown(modalContent)}
-                  />
-                )}
+              <div className="flex-1 p-6 overflow-y-auto custom-scrollbar select-text bg-[#0A0A0A]/20 leading-relaxed font-sans text-xs relative min-h-[220px]">
+                <AnimatePresence mode="wait">
+                  {isActionLoading ? (
+                    <motion.div
+                      key="action-loader"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute inset-0 flex items-center justify-center p-6 bg-[#0A0A0A]/10 select-none"
+                    >
+                      <div className="w-full max-w-md border border-brand-border bg-[#111111] p-5 flex flex-col gap-4 font-mono">
+                        <div className="flex items-center justify-between border-b border-brand-border/40 pb-2">
+                          <span className="text-[9px] font-bold text-[#4B8EFF] tracking-wider uppercase flex items-center gap-1.5">
+                            <span className="w-1.5 h-1.5 bg-[#4B8EFF] animate-pulse"></span>
+                            EXECUTING_ACTION
+                          </span>
+                          <span className="text-[8px] text-slate-500">GEMMA_4_API</span>
+                        </div>
+                        <div className="space-y-1.5">
+                          <div className="w-full h-1 bg-[#0A0A0A] border border-brand-border/20 overflow-hidden relative">
+                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#4B8EFF]/40 to-transparent -translate-x-full animate-shimmer-x"></div>
+                          </div>
+                          <span className="text-[9px] text-slate-500 uppercase tracking-wider block">Generating response streams...</span>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="action-content"
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                      className="w-full min-h-full"
+                    >
+                      <div 
+                        className="prose prose-invert max-w-none text-slate-300 text-xs font-sans leading-relaxed space-y-3"
+                        dangerouslySetInnerHTML={renderMarkdown(modalContent)}
+                      />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
 
               {!isActionLoading && modalContent && (

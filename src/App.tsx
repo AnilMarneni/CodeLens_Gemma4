@@ -3,6 +3,7 @@ import { Navbar } from './components/Navbar';
 import { LandingPage } from './pages/LandingPage';
 import { WorkspacePage } from './pages/WorkspacePage';
 import { useLocalStorage } from './hooks/useLocalStorage';
+import { motion, AnimatePresence } from 'framer-motion';
 
 function App() {
   const [currentTab, setTab] = useState<'landing' | 'workspace'>('landing');
@@ -41,23 +42,43 @@ function App() {
       />
 
       {/* Pages Router Wrapper */}
-      <main className="flex-1 flex flex-col">
-        {currentTab === 'landing' ? (
-          <LandingPage 
-            onStartAnalysis={handleStartAnalysis} 
-            onTrySamples={handleTrySamples} 
-          />
-        ) : (
-          <WorkspacePage 
-            history={history}
-            imagesAnalyzed={imagesAnalyzed}
-            addToHistory={addToHistory}
-            removeFromHistory={removeFromHistory}
-            clearHistory={clearHistory}
-            shouldFocusSamples={shouldFocusSamples}
-            onResetFocusSamples={handleResetFocusSamples}
-          />
-        )}
+      <main className="flex-1 flex flex-col relative overflow-hidden">
+        <AnimatePresence mode="wait">
+          {currentTab === 'landing' ? (
+            <motion.div
+              key="landing-page"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.25, ease: 'easeInOut' }}
+              className="w-full h-full flex-1 flex flex-col"
+            >
+              <LandingPage 
+                onStartAnalysis={handleStartAnalysis} 
+                onTrySamples={handleTrySamples} 
+              />
+            </motion.div>
+          ) : (
+            <motion.div
+              key="workspace-container"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.28, ease: 'easeOut' }}
+              className="w-full h-full flex-1 flex flex-col"
+            >
+              <WorkspacePage 
+                history={history}
+                imagesAnalyzed={imagesAnalyzed}
+                addToHistory={addToHistory}
+                removeFromHistory={removeFromHistory}
+                clearHistory={clearHistory}
+                shouldFocusSamples={shouldFocusSamples}
+                onResetFocusSamples={handleResetFocusSamples}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </main>
 
       {/* Global Footer Attribution */}

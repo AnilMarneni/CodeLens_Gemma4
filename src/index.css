@@ -63,3 +63,23 @@
   line-height: 1.6;
 }
 
+/* Sci-fi Scanning & Shimmer Animations */
+@keyframes scan-y {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+@keyframes shimmer-x {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.animate-scan-y {
+  animation: scan-y 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.animate-shimmer-x {
+  animation: shimmer-x 1.8s ease-in-out infinite;
+}
+
+
