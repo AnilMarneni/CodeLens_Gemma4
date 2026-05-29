@@ -1,150 +1,398 @@
-# CodeLens AI 🔎 — Developer Intelligence Platform
+# CodeLens AI 🚀
 
-CodeLens AI is a production-quality, local developer assistant and diagnostic engine powered by the **Gemma 4 Vision** model running locally via **Ollama**. It classifies, diagnoses, and optimizes developer-related screenshots—ranging from compiler stack traces and terminal crash dumps to algorithmic problem descriptions, UI/UX designs, and microservice system design blueprints.
+> Transform Developer Screenshots into Actionable Intelligence
 
-Designed with a flat, dark, high-density engineering layout (reminiscent of modern tools like Sentry, Datadog, GitHub, and Vercel), CodeLens AI operates 100% locally with zero internet data telemetry, zero API usage costs, and complete privacy for proprietary codebases.
+CodeLens AI is a **local-first Developer Intelligence Platform** powered by **Gemma 4 Vision** running through **Ollama**. The platform enables developers to upload technical screenshots—such as error messages, code snippets, LeetCode problems, UI mockups, architecture diagrams, and terminal outputs—and receive structured, actionable insights instantly.
 
----
-
-## 🚀 Rebuilt 2-Page Workspace Architecture
-
-We redesigned CodeLens AI into a spacious, modular **two-page architecture** to keep the interface professional, dense, and uncluttered:
-
-### Page 1 — Workspace (Dashboard Overview)
-* **Visual centerpiece drag-and-drop zone**: Easily load screenshots. When an image is selected, details appear alongside a prominent **Run Diagnostic Engine** button.
-* **Left Navigation Sidebar**: Acts as a command control bar. Pinned navigation links (`Workspace`, `Recent Analyses`, `Sample Analyses`) scroll the page smoothly to their respective grids. Pinned footer triggers open the system configuration and documentation portals.
-* **Ollama Gateway Status Panel**: Displays active model connectivity (`gemma4:e4b`), status indicators (`● Connected`), and token context limits.
-* **Recent Analyses & Sample Lists**: Clean grids mapping previous runs and example datasets (offline sandbox) with visual image thumbnails.
-
-### Page 2 — Analysis View (Full-Screen Diagnostics)
-* **Automated Transition**: Triggering an analysis or selecting an item transitions the interface into a full-screen split-panel details view, hiding the left sidebar to maximize visual width.
-* **Top Bar Command Bar**: Provides a `← Workspace` back button, filename details, active model target, and job runtime duration in seconds.
-* **Split Layout**:
-  * **Left Column (40% width)**: A full-height preview of the uploaded screenshot.
-  * **Right Column (60% width)**: Scrollable developer insight panels, performance analysis metrics, specific code fix recommendations (with side-by-side unified code diffs), and the **Ask AI** terminal console.
-* **Inline Loading Status**: In scanning mode, the right-hand column renders an animated circular indicator, progress bar, and skeleton cards, matching the screenshot on the left.
+Unlike traditional AI assistants that require users to manually copy and paste information, CodeLens AI directly understands visual developer content and converts it into meaningful engineering recommendations.
 
 ---
 
-## 💡 Real-world Gemma Vision Use Cases for Developers
+## 🎯 Problem Statement
 
-Running **Gemma 4 Vision** locally through Ollama provides unique capabilities for developer tools and workflows:
+Developers frequently encounter important information trapped inside screenshots:
 
-### 1. Private Code & Stack Trace Debugging
-* **Data Isolation**: Proprietary codebases and sensitive logs are never sent to external servers. Gemma parses stack trace logs locally, finding file indices, memory leaks, or dependency issues securely.
-* **Context Recognition**: Recognizes visual IDE layouts and highlights source lines that triggered unhandled exceptions.
+- Runtime errors
+- Build failures
+- LeetCode problems
+- UI designs and wireframes
+- System architecture diagrams
+- Terminal outputs
+- Code screenshots
 
-### 2. LeetCode complement mapping & Interview Prep
-* **Pattern Classification**: Gemma reads problem constraints from browser screenshots and instantly maps the problem type (e.g., Single-Pass Hash Map, Sliding Window, DFS).
-* **Grounding Analysis**: Avoids generic, fake metrics by directly inferring $O(N)$ Time and Space complexities and providing optimal, executable solutions.
+Understanding these screenshots often requires switching between multiple tools, manually copying content, searching documentation, and repeatedly querying AI systems.
 
-### 3. Visual UI-to-Code generation
-* **Tailwind CSS & React Components**: Translates high-fidelity UI/UX mockups, mobile sign-in flows, or dashboard frames directly into responsive React structures.
-* **Design Validation**: Audit contrasts, margins, and accessibility guidelines (such as touch-target sizes) visual-first.
-
-### 4. System Architecture Optimization
-* **Vulnerability Mapping**: Scans microservice blueprints and system design charts to detect bottlenecks (e.g., Single Points of Failure, SPOF databases) and generates interactive architectural schemas (such as Mermaid diagrams) suggesting queuing or load-balancing integrations.
+CodeLens AI eliminates this friction by allowing users to upload a screenshot and instantly receive intelligent analysis.
 
 ---
 
-## 📂 Folder Structure
+## 💡 Solution
 
+CodeLens AI acts as a visual developer assistant that:
+
+1. Accepts technical screenshots.
+2. Uses Gemma 4 Vision to understand the image content.
+3. Identifies the screenshot category automatically.
+4. Generates structured insights.
+5. Provides actionable recommendations and follow-up assistance.
+
+---
+
+## ✨ Features
+
+### 📸 Screenshot Analysis
+
+Supports:
+
+- Error Screenshots
+- Code Screenshots
+- LeetCode Problems
+- UI Mockups
+- System Design Diagrams
+- Terminal Outputs
+- Technical Documentation
+
+---
+
+### 🧠 AI Insight Engine
+
+Generates:
+
+- AI Insight
+- Developer Impact
+- Key Findings
+- Issues Found
+- Suggested Improvements
+- Recommended Actions
+
+---
+
+### 🔍 Error Diagnosis
+
+For error screenshots, CodeLens AI provides:
+
+- Error Type
+- Root Cause Analysis
+- Suggested Fixes
+- Terminal Commands
+- Debugging Guidance
+
+---
+
+### 🏆 LeetCode Assistant
+
+For coding problems:
+
+- Problem Understanding
+- Pattern Detection
+- Difficulty Estimation
+- Solution Approach
+- Complexity Analysis
+- Optimization Suggestions
+
+---
+
+### 🎨 UI Mockup Analysis
+
+For design screenshots:
+
+- Component Detection
+- Layout Breakdown
+- Technology Suggestions
+- Implementation Guidance
+
+---
+
+### 🏗️ System Design Review
+
+For architecture diagrams:
+
+- Architecture Summary
+- Bottleneck Identification
+- Scalability Review
+- Improvement Suggestions
+
+---
+
+### 💬 Ask AI
+
+After analysis, users can continue the conversation using contextual prompts:
+
+- Generate React code
+- Explain simply
+- Show optimal solution
+- Suggest improvements
+
+---
+
+### 📚 Analysis History
+
+Stores previous analyses locally for quick retrieval.
+
+---
+
+### 🧪 Sample Analysis Mode
+
+Includes preloaded sample screenshots for:
+
+- Offline demonstrations
+- Quick testing
+- Hackathon presentations
+
+No Ollama connection is required when using sample analyses.
+
+---
+
+## 🤖 Gemma 4 Vision Integration
+
+### Why Gemma?
+
+The core innovation of CodeLens AI is its use of **Gemma 4 Vision** as the multimodal reasoning engine.
+
+Traditional developer tools require users to manually provide text input. CodeLens AI instead allows developers to work directly with screenshots.
+
+Gemma 4 Vision enables the platform to:
+
+- Understand visual content
+- Read screenshots
+- Interpret code images
+- Analyze UI designs
+- Recognize architecture diagrams
+- Extract developer intent
+
+---
+
+### How Gemma Is Used
+
+Workflow:
+
+```text
+Screenshot
+      ↓
+CodeLens AI
+      ↓
+Gemma 4 Vision
+      ↓
+Classification
+      ↓
+Structured Analysis
+      ↓
+Actionable Insights
 ```
-CodeLens-AI/
-├── package.json                   # Root package.json (concurrently orchestrator)
-├── tsconfig.json                  # Root tsconfig for frontend React app
-├── tsconfig.node.json             # Vite config ts compiler definitions
-├── vite.config.ts                 # Vite bundler configurations
-├── tailwind.config.js             # Tailwind CSS custom themes & layout setup
-├── postcss.config.js              # PostCSS configuration
-├── index.html                     # HTML root page
-├── .gitignore                     # Git filter patterns
-├── src/                           # Frontend React Application
-│   ├── main.tsx                   # Mount client script
-│   ├── App.tsx                    # Main root component & tab router
-│   ├── index.css                  # Global styles & layout overrides
-│   ├── components/                # Modular client elements
-│   │   ├── Toast.tsx              # Framer Motion animated status notifications
-│   │   ├── Navbar.tsx             # Header navigation & analyzed counter stats
-│   │   ├── Sidebar.tsx            # Local storage history list & metadata
-│   │   ├── SkeletonCards.tsx      # Pulse card loaders for scanning cycles
-│   │   └── ResultsPanel.tsx       # AI Insight, Impact, Metrics, Action triggers, and Follow-up chat
-│   ├── pages/                     # Application pages
-│   │   ├── LandingPage.tsx        # Dynamic landing overview with grids & CTAs
-│   │   └── WorkspacePage.tsx      # Application workspace & state orchestration
-│   ├── hooks/                     # Custom React Hooks
-│   │   └── useLocalStorage.ts     # Cache list & statistics synchronizer
-│   ├── services/                  # Network operations
-│   │   └── api.ts                 # Backend fetch client
-│   ├── types/                     # TypeScript definitions
-│   │   └── index.ts               # Shared models
-│   └── utils/                     # Asset/Data Helpers
-│       └── demoData.ts            # SVG images and preloaded mock reports
-└── server/                        # Backend Node.js / Express Application
-    ├── package.json               # Backend script runners
-    ├── tsconfig.json              # Backend TypeScript config
-    ├── server.ts                  # Express server entry configuration
-    ├── middleware/
-    │   └── upload.ts              # Multer upload restrictions (10MB, jpeg/png only)
-    ├── routes/
-    │   ├── analyze.ts             # POST /api/analyze router
-    │   └── action.ts              # POST /api/action follow-up router
-    └── services/
-        └── ollama.ts              # Local Ollama fetch connection class
+
+Gemma first determines the screenshot category:
+
+- Error Screenshot
+- Code Screenshot
+- LeetCode Problem
+- UI Mockup
+- System Design Diagram
+- Terminal Output
+
+It then generates context-aware recommendations tailored to that category.
+
+---
+
+### Why Local AI?
+
+CodeLens AI uses:
+
+```text
+Ollama
++
+Gemma 4 Vision
+```
+
+running locally on the user's machine.
+
+Benefits:
+
+#### 🔒 Privacy
+
+Screenshots never leave the device.
+
+#### ⚡ Low Latency
+
+No external API calls.
+
+#### 💰 Zero Usage Cost
+
+No paid AI API required.
+
+#### 🌐 Offline Capability
+
+Works without internet access.
+
+#### 🧠 Demonstrates Local AI Engineering
+
+Showcases practical deployment of open-source multimodal models.
+
+---
+
+## 🏗️ Architecture
+
+### Frontend
+
+- React
+- TypeScript
+- Tailwind CSS
+- Vite
+
+Responsibilities:
+
+- Upload screenshots
+- Display analysis results
+- Manage history
+- Provide user interactions
+
+---
+
+### Backend
+
+- Node.js
+- Express
+- TypeScript
+
+Responsibilities:
+
+- Receive uploaded images
+- Process requests
+- Communicate with Ollama
+- Return structured responses
+
+---
+
+### AI Layer
+
+- Ollama
+- Gemma 4 Vision (`gemma4:e4b`)
+
+Responsibilities:
+
+- Visual understanding
+- Classification
+- Reasoning
+- Recommendation generation
+
+---
+
+## 📂 Application Flow
+
+```text
+Upload Screenshot
+        ↓
+Image Processing
+        ↓
+Gemma 4 Vision
+        ↓
+Screenshot Classification
+        ↓
+AI Analysis
+        ↓
+Insights & Recommendations
+        ↓
+Follow-up Questions
 ```
 
 ---
 
-## ⚙️ Prerequisites
+## 🎯 Use Cases
 
-1. **Node.js** (v18.0.0 or higher is recommended).
-2. **Ollama** installed locally.
-   * Download Ollama from [ollama.com](https://ollama.com).
-3. **Gemma 4 Vision Model** pulled locally in Ollama:
-   ```bash
-   ollama pull gemma4:e4b
-   ```
+### Students
+
+- Understand coding problems
+- Learn algorithms
+- Debug assignments
+
+### Developers
+
+- Investigate errors
+- Review code screenshots
+- Analyze architecture diagrams
+
+### Interview Candidates
+
+- Practice LeetCode
+- Learn patterns
+- Understand optimizations
+
+### Hackathon Teams
+
+- Quickly interpret screenshots
+- Generate implementation guidance
 
 ---
 
-## 🚀 Installation & Running
+## 🚀 Future Scope
 
-### Step 1: Install Dependencies
-From the root project folder, run:
+- React Component Generation from UI screenshots
+- Automatic Code Fix Generation
+- Multi-image Comparison
+- GitHub Integration
+- VS Code Extension
+- Team Collaboration Features
+- Architecture Evolution Tracking
+
+---
+
+## 🛠️ Installation
+
+### Prerequisites
+
+- Node.js
+- Ollama
+- Gemma 4 Vision Model
+
+Install model:
+
+```bash
+ollama pull gemma4:e4b
+```
+
+---
+
+### Run Locally
+
+Install dependencies:
+
 ```bash
 npm install
 ```
-*Note: A postinstall script will run automatically to fetch dependencies for the backend `/server` package.*
 
-### Step 2: Configure Environment Settings
-Confirm that a `.env` file exists in the root folder with the following variables:
-```env
-# Server API Port
-PORT=5000
+Start development environment:
 
-# Local Ollama instance
-OLLAMA_HOST=http://localhost:11434
-GEMMA_MODEL=gemma4:e4b
-
-# React client endpoint
-VITE_API_URL=http://localhost:5000
-```
-
-### Step 3: Run the Application
-Start the development server for both the frontend client and the backend server by running:
 ```bash
 npm run dev
 ```
 
-* **Vite Client:** Launches at [http://localhost:3000](http://localhost:3000).
-* **Express Server:** Launches at [http://localhost:5000](http://localhost:5000).
+Open:
+
+```text
+http://localhost:3000
+```
 
 ---
 
-## 🖥️ Demo Sandbox (Offline Mode)
+## 🏆 Hackathon Theme
 
-If you are demoing without a local Ollama server running:
-1. Open the homepage at [http://localhost:3000](http://localhost:3000).
-2. Click **Open Workspace** or **Use Demo Examples**.
-3. Under the **Sample Analyses (Offline Sandbox)** grid on Page 1, click any of the preloaded developer cards (e.g., `ERR_001_REACT_HOOK`, `ALG_001_TWO_SUM`, etc.).
-4. The application will cycle through realistic rotating loading screens and progress bar shimmers on Page 2, and populate a rich database of analysis cards, including fully functional, responsive follow-up action modals and conversation chat threads.
+CodeLens AI demonstrates how multimodal AI can improve developer productivity by transforming screenshots into structured engineering knowledge.
+
+The project showcases:
+
+- Local AI deployment
+- Multimodal reasoning
+- Practical developer tooling
+- Human-AI collaboration
+- Privacy-first architecture
+
+---
+
+## 📜 License
+
+Built for experimentation, learning, and hackathon innovation.
+
+---
+
+### Built with ❤️ using Gemma 4 Vision + Ollama
+
+**CodeLens AI — Transform Developer Screenshots into Actionable Intelligence.** 🚀
