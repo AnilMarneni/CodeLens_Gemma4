@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body {
+    background-color: #0A0A0A;
+    color: #E5E5E5;
+    font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    scroll-behavior: smooth;
+  }
+
+  /* Global technical flat edges override */
+  *, *::before, *::after {
+    border-radius: 0px !important;
+  }
+
+  /* Custom Flat Technical Scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #0A0A0A;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #262626;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #4B8EFF;
+  }
+
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #262626 #0A0A0A;
+  }
+}
+
+/* Force flat operational borders over shadows */
+.shadow-glass {
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Base styling code blocks outputted by markdown */
+.prose pre {
+  margin: 0;
+  border-radius: 0px !important;
+  border: 1px solid #262626;
+  background-color: #111111;
+}
+
+.prose code {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.85em;
+}
+
+.prose li {
+  line-height: 1.6;
+}
+
