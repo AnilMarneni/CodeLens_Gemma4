@@ -731,30 +731,59 @@ items?.map(item => <Card key={item.id} />)`;
                 transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                 className="absolute inset-0 p-6 overflow-y-auto custom-scrollbar w-full flex flex-col items-center justify-center bg-brand-bg"
               >
-                <div className="flex flex-col items-center max-w-sm text-center">
-                  {/* Rotating Loader Icon */}
-                  <div className="relative w-16 h-16 flex items-center justify-center mb-6">
-                    <div className="absolute inset-0 border-4 border-slate-800 rounded-none"></div>
-                    <div className="absolute inset-0 border-4 border-[#4B8EFF] border-t-transparent rounded-none animate-spin"></div>
-                    <Cpu className="w-6 h-6 text-brand-secondary absolute animate-pulse text-slate-400" />
+                <div className="w-full max-w-lg flex flex-col gap-6 select-none font-mono">
+                  {/* Console loading box */}
+                  <div className="border border-brand-border bg-[#111111] p-6 flex flex-col gap-4">
+                    <div className="flex items-center justify-between border-b border-brand-border/40 pb-3">
+                      <span className="text-[10px] font-bold text-[#4B8EFF] tracking-wider uppercase flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 bg-[#4B8EFF] animate-pulse rounded-none"></span>
+                        AI Diagnostics Active
+                      </span>
+                      <span className="text-[9px] text-[#4B8EFF] font-bold">{loadingProgress}% COMPLETE</span>
+                    </div>
+
+                    <div className="space-y-2">
+                      <span className="text-[9px] text-slate-500 block uppercase font-bold tracking-wider">Active Process</span>
+                      <h3 className="text-xs font-bold text-white uppercase tracking-wider min-h-[16px]">
+                        {loadingText}
+                      </h3>
+                      
+                      {/* Sleek Minimalist Progress Bar */}
+                      <div className="w-full h-1 bg-slate-900 overflow-hidden relative border border-brand-border/10">
+                        <div 
+                          className="h-full bg-[#4B8EFF] transition-all duration-500 ease-out" 
+                          style={{ width: `${loadingProgress}%` }}
+                        ></div>
+                      </div>
+                    </div>
+
+                    {/* Step log metrics */}
+                    <div className="border-t border-brand-border/30 pt-4 text-[9px] text-slate-500 leading-relaxed space-y-1">
+                      <div className="flex items-center gap-2">
+                        <span className="text-emerald-400">✔</span>
+                        <span>Buffer initialized locally</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        {loadingProgress >= 25 ? (
+                          <span className="text-emerald-400">✔</span>
+                        ) : (
+                          <span className="w-2 h-2 border border-slate-700 block shrink-0"></span>
+                        )}
+                        <span>Gemma 4 parsed screenshot ({Math.round(loadingProgress * 4.5)} tokens)</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        {loadingProgress >= 75 ? (
+                          <span className="text-emerald-400">✔</span>
+                        ) : (
+                          <span className="w-2 h-2 border border-slate-700 block shrink-0"></span>
+                        )}
+                        <span>Mapping structural analysis vectors</span>
+                      </div>
+                    </div>
                   </div>
                   
-                  {/* Rotating Loading Text */}
-                  <h3 className="text-md font-bold text-white min-h-[24px] font-mono uppercase tracking-wider">
-                    {loadingText}
-                  </h3>
-                  
-                  {/* Animated Progress Bar */}
-                  <div className="w-48 h-1.5 bg-slate-800 overflow-hidden mt-4 mb-2 border border-brand-border/20">
-                    <div 
-                      className="h-full bg-[#4B8EFF] transition-all duration-500 ease-out" 
-                      style={{ width: `${loadingProgress}%` }}
-                    ></div>
-                  </div>
-                  <span className="text-[10px] font-bold text-[#4B8EFF] font-mono">{loadingProgress}% COMPLETE</span>
-                  
-                  <p className="text-xs text-slate-500 mt-3 leading-relaxed font-sans">
-                    Gemma 4 Vision is parsing screenshot tokens and mapping structures locally.
+                  <p className="text-[10px] text-slate-500 text-center leading-relaxed font-sans mt-1">
+                    Gemma 4 Vision is executing visual inference natively via local Ollama connection.
                   </p>
                 </div>
                 <div className="w-full max-w-3xl mt-8">
